@@ -6,5 +6,6 @@ namespace FlashcardGenerator.Model
     {
         public string Title { get; set; }
         public List<Definition> Definitions { get; set; }
+        public int MaxDepth { get; internal set; }
     }
 }

@@ -31,13 +31,13 @@ namespace FlashcardGenerator.Tests.Data
             var deck = sut.Read();
             var cards = deck.Definitions;
             Assert.AreEqual(2, cards.Count);
-            Assert.AreEqual("term1: 1", cards[0].FullText);
-            Assert.AreEqual("term2: 2", cards[1].FullText);
+            Assert.AreEqual("term1: def1", cards[0].FullText);
+            Assert.AreEqual("term2: def2", cards[1].FullText);
 
-            Assert.AreEqual("term1-1: 1-1", cards[0].Subdefinitions[0].FullText);
-            Assert.AreEqual("term2-1: 2-1", cards[1].Subdefinitions[0].FullText);
-            Assert.AreEqual("term1-2: 1-2", cards[0].Subdefinitions[1].FullText);
-            Assert.AreEqual("term1-1-1:1-1-1", cards[0].Subdefinitions[0].Subdefinitions[0].FullText);
+            Assert.AreEqual("term1-1: def1-1", cards[0].Subdefinitions[0].FullText);
+            Assert.AreEqual("term2-1: def2-1", cards[1].Subdefinitions[0].FullText);
+            Assert.AreEqual("term1-2: def1-2", cards[0].Subdefinitions[1].FullText);
+            Assert.AreEqual("term1-1-1:def1-1-1", cards[0].Subdefinitions[0].Subdefinitions[0].FullText);
         }
     }
 }

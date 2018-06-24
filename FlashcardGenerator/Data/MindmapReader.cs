@@ -11,6 +11,7 @@ namespace FlashcardGenerator.Data
         private const string NodeTag = "node";
         private const string Name = "TEXT";
         private readonly Stream _freemindXmlStream;
+        private int _maxLevel;
 
         public MindmapReader(Stream freemindXmlStream)
         {
@@ -33,16 +34,20 @@ namespace FlashcardGenerator.Data
                 var rootChildrenEls = rootEl.Elements(NodeTag);
                 var defs = rootChildrenEls.Select(ParseDefinitionEl);
 
-                var outline = new DefinitionOutline();
-                outline.Title = title;
-                outline.Definitions = defs.ToList();
+                var outline = new DefinitionOutline
+                {
+                    Title = title,
+                    Definitions = defs.ToList(),
+                    MaxDepth = _maxLevel+1
+                };
 
                 return outline;
             }
         }
 
-        private Definition ParseDefinitionEl(XElement rootFirstChild)
+        private Definition ParseDefinitionEl(XElement rootFirstChild, int level = 0)
         {
+            _maxLevel = level;
             var subDefsEl = rootFirstChild.Elements(NodeTag);
             var fullText = rootFirstChild.Attribute(Name).Value;
             if (subDefsEl.Count() == 0)
@@ -53,7 +58,7 @@ namespace FlashcardGenerator.Data
             return new Definition()
             {
                 FullText = fullText,
-                Subdefinitions = subDefsEl.Select(ParseDefinitionEl).ToList()
+                Subdefinitions = subDefsEl.Select(el => ParseDefinitionEl(el, level+1)).ToList()
             };
         }
     }
