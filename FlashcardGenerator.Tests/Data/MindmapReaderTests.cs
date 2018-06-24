@@ -31,7 +31,8 @@ namespace FlashcardGenerator.Tests.Data
             var deck = sut.Read();
             var cards = deck.Definitions;
             Assert.AreEqual(2, cards.Count);
-            Assert.AreEqual("term1: def1", cards[0].FullText);
+            Assert.AreEqual("term1: def1:more", cards[0].FullText);
+            Assert.AreEqual("def1:more", cards[0].Description);
             Assert.AreEqual("term2: def2", cards[1].FullText);
 
             Assert.AreEqual("term1-1: def1-1", cards[0].Subdefinitions[0].FullText);

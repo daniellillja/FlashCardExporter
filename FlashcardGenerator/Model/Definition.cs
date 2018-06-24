@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace FlashcardGenerator.Model
 {
@@ -6,16 +7,22 @@ namespace FlashcardGenerator.Model
     {
         public string FullText { get; set; }
         public List<Definition> Subdefinitions { get; set; }
-        public string Term {
+        static Regex TermExtractionRegex = new Regex(@"(.*?):\s*(.*)\s*$");
+        public string Term
+        {
             get
             {
-                return FullText.Split(':')[0].Trim();
-            }}
+                var matches = TermExtractionRegex.Match(FullText).Groups;
+                return matches[1].Value;
+            }
+        }
+
         public string Description
         {
             get
             {
-                return FullText.Split(':')[1].Trim();
+                var matches = TermExtractionRegex.Match(FullText).Groups;
+                return matches[2].Value;
             }
         }
     }

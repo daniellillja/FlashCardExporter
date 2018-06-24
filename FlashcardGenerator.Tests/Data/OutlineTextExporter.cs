@@ -24,7 +24,7 @@ namespace FlashcardGenerator.Tests.Data
             Console.WriteLine(text);
             var textLines = text.Split(Environment.NewLine);
             Assert.AreEqual("root", textLines[0]);
-            Assert.AreEqual("\tterm1\t\t\tdef1", textLines[1]);
+            Assert.AreEqual("\tterm1\t\t\tdef1:more", textLines[1]);
             Assert.AreEqual("\t\tterm1-1\t\tdef1-1", textLines[2]);
             Assert.AreEqual("\t\t\tterm1-1-1\tdef1-1-1", textLines[3]);
             Assert.AreEqual(3, outline.MaxDepth);
